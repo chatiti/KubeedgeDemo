@@ -1,0 +1,47 @@
+<div class="wrapper" style="margin-top: 5px;">
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div class="tab-pane active" id="section2">
+			<div class="row">
+				<div style="width:100%;font-size: 18px; height: 40px; padding-left: 15px;">Temperature Switch</div>
+				<div class="col-md-12 space">
+					<table style="width: 100%; font-size: 18px;" id="tracktable">
+						<tr style="height: 30px;">
+							<td style="width: 15%">
+								<input type="radio" name="track" value="ON" checked />
+							</td>
+							<td>
+								1. ON
+							</td>
+						</tr>
+						<tr style="height: 30px;">
+							<td>
+								<input type="radio" name="track" value="OFF" />
+							</td>
+
+							<td>
+								2. OFF
+							</td>
+						</tr>
+						<tr style="height: 30px;">
+							<td>
+								<input type="radio" name="track" value="STATUS" />
+							</td>
+
+							<td>
+								3. STATUS
+							</td>
+						</tr>
+					</table>
+
+					<div style="text-align: center">
+						<input class="btn btn-success button" id="track-play-button" type="button" value="Execute" style="width: 100px; margin: 20px"/>
+					</div>
+
+					<div id="stations-view-json" style="text-align: center; color:green">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- Tab Content End -->
+</div><!-- Wrapper End -->
