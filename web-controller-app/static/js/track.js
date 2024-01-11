@@ -26,9 +26,9 @@ function ControlTrack() {
 function ControlTrack_Callback() {
 	try {
         if (this.Data!=null && this.Data.Result==1) {
-            $('#stations-view-json').html('Turn On thermometer');
+            $('#stations-view-json').html('Turn On edge device');
         } else if (this.Data!=null && this.Data.Result==2) {
-            $('#stations-view-json').html('Turn Off thermometer');
+            $('#stations-view-json').html('Turn Off edge device');
         } else if (this.Data!=null && this.Data.Result==3) {
             $('#stations-view-json').html(JSON.stringify(this.Data));
         } else {
