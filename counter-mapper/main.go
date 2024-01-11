@@ -131,12 +131,12 @@ func main() {
 
 		if cmd == "ON" && cmd != current_status {
 			ctr.TurnOn()
-			fmt.Printf("turn on temperature.\n")
+			fmt.Printf("turn on edge device.\n")
 		}
 
 		if cmd == "OFF" && cmd != current_status {
 			ctr.TurnOff()
-			fmt.Printf("turn off temperature.\n")
+			fmt.Printf("turn off edge device.\n")
 		}
 
 		current_status = cmd
