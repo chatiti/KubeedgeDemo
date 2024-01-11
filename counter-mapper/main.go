@@ -29,9 +29,9 @@ type BaseMessage struct {
 
 // TwinValue the struct of twin value
 type TwinValue struct {
-	Value    *string        `json:"value, omitempty"`
-	SunValue *string        `json:"sunvalue, omitempty"`
-	Metadata *ValueMetadata `json:"metadata,omitempty"`
+	Value        *string        `json:"value, omitempty"`
+	LicenseValue *string        `json:"licensevalue, omitempty"`
+	Metadata     *ValueMetadata `json:"metadata,omitempty"`
 }
 
 // ValueMetadata the meta of value
@@ -67,23 +67,23 @@ type DeviceTwinUpdate struct {
 }
 
 // createActualUpdateMessage function is used to create the device twin update message
-func createActualUpdateMessage(actualValue, sunValue string) DeviceTwinUpdate {
+func createActualUpdateMessage(actualValue, license string) DeviceTwinUpdate {
 	var deviceTwinUpdateMessage DeviceTwinUpdate
-	actualMap := map[string]*MsgTwin{"status": {Actual: &TwinValue{Value: &actualValue, SunValue: &sunValue}, Metadata: &TypeMetadata{Type: "Updated"}}}
+	actualMap := map[string]*MsgTwin{"status": {Actual: &TwinValue{Value: &actualValue, LicenseValue: &license}, Metadata: &TypeMetadata{Type: "Updated"}}}
 	deviceTwinUpdateMessage.Twin = actualMap
 	return deviceTwinUpdateMessage
 }
 
-func publishToMqtt(data, sun int) {
-	updateMessage := createActualUpdateMessage(strconv.Itoa(data), strconv.Itoa(sun))
+func publishToMqtt(data int, license string) {
+	updateMessage := createActualUpdateMessage(strconv.Itoa(data), license)
 	twinUpdateBody, _ := json.Marshal(updateMessage)
 
 	token := cli.Publish(topic, 0, false, twinUpdateBody)
 
 	//添加到demo topic 温度和光照 start---------
 	localUpdateMessage := map[string]interface{}{
-		"temperature": data,
-		"sun":         sun,
+		"number":  data,
+		"license": license,
 	}
 	localMsg, _ := json.Marshal(localUpdateMessage)
 	cli.Publish("demo", 0, false, localMsg)

@@ -13,28 +13,25 @@ const (
 
 type Counter struct {
 	status chan int
-	handle func(int, int)
+	handle func(int, string)
 }
 
 func (counter *Counter) runDevice(interrupt chan struct{}) {
 	data := 0
 	source := rand.NewSource(time.Now().UnixNano())
 	rng := rand.New(source)
-	data = rng.Intn(30) + 1
-
-	sun := 0
-	sun = rng.Intn(30) + 1
-
+	license := ""
 	for {
 		select {
 		case <-interrupt:
-			counter.handle(0, 0)
+			counter.handle(0, license)
 			return
 		default:
-			data++
-			sun++
-			counter.handle(data, sun)
-			fmt.Println("Temperature value:", data)
+			data = rng.Intn(30)
+			license = generateLicensePlate(data)
+			counter.handle(data, license)
+			fmt.Println("license number:", data)
+			fmt.Println("license:", license)
 			time.Sleep(1 * time.Second)
 		}
 	}
@@ -64,7 +61,7 @@ func (counter *Counter) TurnOff() {
 	counter.status <- OFF
 }
 
-func NewCounter(h func(x, y int)) *Counter {
+func NewCounter(h func(x int, y string)) *Counter {
 	counter := &Counter{
 		status: make(chan int),
 		handle: h,
